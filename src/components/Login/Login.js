@@ -14,9 +14,25 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6 && enteredCollagename.trim().length >2
-    );
+    console.log('EFFECT RUNNING');
+
+    return () => {
+      console.log('EFFECT CLEANUP');
+    };
+  }, []);
+
+  useEffect(() => {
+    const identifier = setTimeout(()=>{
+      console.log('Checking form validity!')
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6 && enteredCollagename.trim().length >2
+      );
+    },500)
+    return () => {
+      console.log('CLEANUP');
+      clearTimeout(identifier);
+    };
+    
   }, [enteredEmail, enteredPassword,enteredCollagename]);
 
   const CollagenameChangeHandler = (event)=>{
